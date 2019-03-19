@@ -1,0 +1,23 @@
+{
+  "name": "weekly-task-1",
+  "version": "1.0.0",
+  "description": "An Express.js app for uploading images and display them",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZeusLMT/server-side-scripting-framework.git"
+  },
+  "author": "Tuan Le",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZeusLMT/server-side-scripting-framework/issues"
+  },
+  "homepage": "https://github.com/ZeusLMT/server-side-scripting-framework#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10"
+  }
+}
