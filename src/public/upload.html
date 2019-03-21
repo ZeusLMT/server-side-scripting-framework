@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload page</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Upload photo</legend>
+        <form method="post" action="upload/post" enctype="multipart/form-data">
+            <input type="file" name="image" /> <br /> <br />
+            <label>
+                Title
+                <br />
+                <input type="text" name="title" />
+            </label> <br />
+            <label>
+                Category
+                <br />
+                <input list="category">
+                <datalist id="category">
+                    <option value="Buildings">
+                    <option value="Landscapes">
+                    <option value="Portraits">
+                    <option value="Animals">
+                    <option value="Food">
+                </datalist>
+            </label> <br />
+            <label>
+                Description
+                <br />
+                <textarea name="details" rows="10" cols="30"></textarea>
+            </label> <br />
+            <button type="submit" name="upload">Upload</button>
+        </form>
+    </fieldset>
+</body>
+</html>
