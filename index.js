@@ -2,13 +2,15 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
-app.use(express.static('./src/public'));
+const path = require('path');
+app.use(express.static('.public'));
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 const upload = require('./uploadMiddleware');
+const Resize = require('./Resize');
 
 app.set('view engine', 'ejs');
 
@@ -45,6 +47,16 @@ app.get('/upload', (req, res) => {
 });
 
 app.post('/post', upload.single('image'), (req, res) => {
-  console.log('post');
-  res.redirect('./');
+  console.log(req);
+
+  const imagePath = path.join(__dirname, '/public/uploads');
+  const fileUpload = new Resize(imagePath);
+
+  if (!req.file) {
+    res.status(401).json({error: 'Please provide an image'});
+  }
+
+  fileUpload.save(req.file.buffer, (filename) => {
+    res.status(200).json({ name: filename });
+  });
 });
