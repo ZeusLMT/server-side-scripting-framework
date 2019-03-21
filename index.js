@@ -4,6 +4,14 @@ const express = require('express');
 const app = express();
 app.use(express.static('./src/public'));
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+const router = require('./router');
+app.set('view engine', 'ejs');
+app.use('/', router);
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
