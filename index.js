@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+const upload = require('./uploadMiddleware');
+
 app.set('view engine', 'ejs');
 
 const mongoose = require('mongoose');
@@ -40,4 +42,9 @@ app.get('/', (req, res) => {
 
 app.get('/upload', (req, res) => {
   res.render('upload');
+});
+
+app.post('/post', upload.single('image'), (req, res) => {
+  console.log('post');
+  res.redirect('./');
 });
