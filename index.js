@@ -47,8 +47,6 @@ app.get('/upload', (req, res) => {
 });
 
 app.post('/post', upload.single('image'), (req, res) => {
-  console.log(req);
-
   const imagePath = path.join(__dirname, '/public/uploads');
   const fileUpload = new Resize(imagePath);
 
