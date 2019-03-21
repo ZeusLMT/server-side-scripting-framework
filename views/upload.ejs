@@ -2,37 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <title>Upload page</title>
 </head>
 <body>
-    <fieldset>
-        <legend>Upload photo</legend>
-        <form method="post" action="upload/post" enctype="multipart/form-data">
-            <input type="file" name="image" /> <br /> <br />
-            <label>
-                Title
-                <br />
-                <input type="text" name="title" />
-            </label> <br />
-            <label>
-                Category
-                <br />
-                <input list="category">
-                <datalist id="category">
-                    <option value="Buildings">
-                    <option value="Landscapes">
-                    <option value="Portraits">
-                    <option value="Animals">
-                    <option value="Food">
-                </datalist>
-            </label> <br />
-            <label>
-                Description
-                <br />
-                <textarea name="details" rows="10" cols="30"></textarea>
-            </label> <br />
-            <button type="submit" name="upload">Upload</button>
-        </form>
-    </fieldset>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/upload">Upload</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container" style="margin-top:30px">
+    <h3>Upload photo</h3>
+    <form method="post" action="upload/post" enctype="multipart/form-data">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="image">
+            <label class="custom-file-label" for="image">Choose file</label>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title">
+        </div>
+
+        <div class="form-group">
+            <label for="category">Select list:</label>
+            <select class="form-control" id="category">
+                <option>Building</option>
+                <option>Landscape</option>
+                <option>Portraits</option>
+                <option>Animals</option>
+                <option>Food</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="details">Description:</label>
+            <textarea class="form-control" rows="5" id="details"></textarea>
+        </div>
+
+        <button type="submit" name="upload" class="btn btn-primary mb-2">Upload</button>
+    </form>
+</div>
+
+<script>
+  // Add the following code if you want the name of the file appear on select
+  $(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+</script>
 </body>
 </html>

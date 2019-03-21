@@ -8,9 +8,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-const router = require('./router');
 app.set('view engine', 'ejs');
-app.use('/', router);
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
@@ -34,4 +32,12 @@ mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@${proce
   app.listen(process.env.APP_PORT);
 }, err => {
   console.log('Connection to db failed: ' + err);
+});
+
+app.get('/', (req, res) => {
+  res.render('home');
+});
+
+app.get('/upload', (req, res) => {
+  res.render('upload');
 });
