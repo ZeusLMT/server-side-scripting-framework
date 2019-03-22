@@ -16,21 +16,7 @@ const saveToJson = require('./fs');
 app.set('view engine', 'ejs');
 
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-const photoSchema = new Schema({
-  id: Number,
-  time: Date,
-  category: String,
-  title: String,
-  details: String,
-  coordinates: { lat: String, lng: String },
-  thumbnail: String,
-  image: String,
-  original: String
-});
-
-const photoModel = mongoose.model('photos', photoSchema);
+const saveDatabase = require('./database');
 
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_MODEL}`).then(() => {
   console.log('Connected successfully.');
@@ -48,7 +34,7 @@ app.get('/upload', (req, res) => {
 });
 
 app.post('/post', upload.single('image'), (req, res) => {
-  const imagePath = path.join(__dirname, '/public/uploads');
+  const imagePath = path.join('./public/uploads');
   const fileUpload = new Resize(imagePath);
 
   if (!req.file) {
@@ -56,8 +42,14 @@ app.post('/post', upload.single('image'), (req, res) => {
   }
 
   fileUpload.save(req.file.buffer, (filePaths) => {
-    //Save to JSON
+    //New JSON file
     const newJson = {...req.body, ...filePaths};
+
+    //Save to data.json
     saveToJson(newJson, 'data.json', () => { res.redirect('./') });
+
+    //Save to Mongo DB
+    saveDatabase(newJson);
+
   });
 });
