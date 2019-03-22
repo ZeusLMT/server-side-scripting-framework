@@ -9,11 +9,13 @@ class Resize {
 
   save(input, callback) {
     const filename = Resize.filename();
-    const filepath = this.filepath(filename.original);
+    const originalPath = this.filepath(filename.original);
+    const smallPath = this.filepath(filename.small);
+    const mediumPath = this.filepath(filename.medium);
     const promises = [];
 
     //Save original photo
-    promises.push(sharp(input).toFile(this.filepath(filename.original)));
+    promises.push(sharp(input).toFile(originalPath));
 
     //Resize to small
     promises.push(
@@ -21,7 +23,7 @@ class Resize {
           fit: sharp.fit.inside,
           withoutEnlargement: true,
         })
-        .toFile(this.filepath(filename.small))
+        .toFile(smallPath)
     );
 
     //Resize to medium
@@ -30,13 +32,20 @@ class Resize {
           fit: sharp.fit.inside,
           withoutEnlargement: true,
         })
-        .toFile(this.filepath(filename.medium))
+        .toFile(mediumPath)
     );
 
     Promise.all(promises)
     .then(() => {
       console.log('saved all photos');
-      callback(filename.original);
+
+      const filePaths = {
+        thumbnail: smallPath,
+        image: mediumPath,
+        original: originalPath
+      };
+
+      callback(filePaths);
     })
     .catch((error) => {
       console.log(error);

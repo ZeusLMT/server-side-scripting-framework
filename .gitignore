@@ -63,3 +63,9 @@ typings/
 
 # next.js build output
 .next
+
+#uploads folder
+uploads/
+
+#data json
+data.json

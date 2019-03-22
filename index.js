@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 const upload = require('./uploadMiddleware');
 const Resize = require('./Resize');
+const saveToJson = require('./fs');
 
 app.set('view engine', 'ejs');
 
@@ -54,7 +55,9 @@ app.post('/post', upload.single('image'), (req, res) => {
     res.status(401).json({error: 'Please provide an image'});
   }
 
-  fileUpload.save(req.file.buffer, (filename) => {
-    res.status(200).json({ name: filename });
+  fileUpload.save(req.file.buffer, (filePaths) => {
+    //Save to JSON
+    const newJson = {...req.body, ...filePaths};
+    saveToJson(newJson, 'data.json', () => { res.redirect('./') });
   });
 });
