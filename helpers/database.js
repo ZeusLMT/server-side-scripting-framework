@@ -26,4 +26,10 @@ const saveToDatabase = (obj) => {
   });
 };
 
-module.exports = saveToDatabase;
+const readAllFromDatabase = (callback) => {
+  photoModel.find().then((all) => {
+    callback(all);
+  });
+};
+
+module.exports = { saveToDatabase, readAllFromDatabase };

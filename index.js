@@ -3,22 +3,23 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
-app.use(express.static('.public'));
+app.use(express.static('public/uploads'));
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-const upload = require('./uploadMiddleware');
-const Resize = require('./Resize');
-const saveToJson = require('./fs');
+const upload = require('./helpers/uploadMiddleware');
+const Resize = require('./helpers/resize');
+const saveToJson = require('./helpers/fs');
 
 app.set('view engine', 'ejs');
 
 const mongoose = require('mongoose');
-const saveDatabase = require('./database');
+const database = require('./helpers/database');
 
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_MODEL}`).then(() => {
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_MODEL}`)
+.then(() => {
   console.log('Connected successfully.');
   app.listen(process.env.APP_PORT);
 }, err => {
@@ -27,6 +28,12 @@ mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@${proce
 
 app.get('/', (req, res) => {
   res.render('home');
+});
+
+app.get('/get-all', (req, res) => {
+  database.readAllFromDatabase((all) => {
+    res.status(200).json(all);
+  });
 });
 
 app.get('/upload', (req, res) => {
@@ -49,7 +56,7 @@ app.post('/post', upload.single('image'), (req, res) => {
     saveToJson(newJson, 'data.json', () => { res.redirect('./') });
 
     //Save to Mongo DB
-    saveDatabase(newJson);
+    database.saveToDatabase(newJson);
 
   });
 });
