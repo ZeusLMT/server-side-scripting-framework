@@ -11,7 +11,8 @@ const photoSchema = new Schema({
   //coordinates: { lat: String, lng: String },
   thumbnail: String,
   image: String,
-  original: String
+  original: String,
+  filename: String
 });
 
 const photoModel = mongoose.model('photo', photoSchema);

@@ -42,7 +42,8 @@ class Resize {
       const filePaths = {
         thumbnail: smallPath,
         image: mediumPath,
-        original: originalPath
+        original: originalPath,
+        filename: filename.plain
       };
 
       callback(filePaths);
@@ -55,7 +56,7 @@ class Resize {
   static filename() {
     const filename = uuidv4();
 
-    return { small: `${filename}_small.png`, medium: `${filename}_medium.png`, original: `${filename}.png` };
+    return { small: `${filename}_small.png`, medium: `${filename}_medium.png`, original: `${filename}.png`, plain: filename };
   }
 
   filepath(filename) {

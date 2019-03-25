@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
-app.use(express.static('public/uploads'));
+app.use(express.static('public'));
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -27,7 +27,9 @@ mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@${proce
 });
 
 app.get('/', (req, res) => {
-  res.render('home');
+  database.readAllFromDatabase((all) => {
+    res.render('home', {data: all});
+  });
 });
 
 app.get('/get-all', (req, res) => {
