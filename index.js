@@ -27,13 +27,13 @@ mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@${proce
 });
 
 app.get('/', (req, res) => {
-  database.readAllFromDatabase((all) => {
+  database.getAll((all) => {
     res.render('home', {data: all});
   });
 });
 
 app.get('/get-all', (req, res) => {
-  database.readAllFromDatabase((all) => {
+  database.getAll((all) => {
     res.status(200).json(all);
   });
 });
@@ -58,7 +58,7 @@ app.post('/post', upload.single('image'), (req, res) => {
     saveToJson(newJson, 'data.json', () => { res.redirect('./') });
 
     //Save to Mongo DB
-    database.saveToDatabase(newJson);
+    database.save(newJson);
 
   });
 });

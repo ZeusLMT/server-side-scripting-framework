@@ -17,7 +17,7 @@ const photoSchema = new Schema({
 
 const photoModel = mongoose.model('photo', photoSchema);
 
-const saveToDatabase = (obj) => {
+const save = (obj) => {
   photoModel.create(obj)
   .then((image) => {
     console.log('image saved to database');
@@ -27,10 +27,10 @@ const saveToDatabase = (obj) => {
   });
 };
 
-const readAllFromDatabase = (callback) => {
+const getAll = (callback) => {
   photoModel.find().then((all) => {
     callback(all);
   });
 };
 
-module.exports = { saveToDatabase, readAllFromDatabase };
+module.exports = { save, getAll };
