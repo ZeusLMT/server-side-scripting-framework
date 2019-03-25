@@ -1,4 +1,4 @@
-# WEEK 1 ASSIGNMENT
+# WEEK 2 ASSIGNMENT
 
 ### Completed features:
 - Add new image (HTML form + POST)
@@ -6,3 +6,9 @@
 - Save to database (mongooseDB)
 - Save to local JSON (fs.js)
 - Retrieve data from DB and show all images on front-end
+
+### TODO features:
+- Edit image info (PATCH)
+- Delete image (PUT)
+- Search for image (queries in DB)
+- Authentication
