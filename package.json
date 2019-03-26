@@ -1,8 +1,8 @@
 {
-  "name": "weekly-task-1",
+  "name": "weekly-task-2",
   "version": "1.0.0",
   "description": "An Express.js app for uploading images and display them",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

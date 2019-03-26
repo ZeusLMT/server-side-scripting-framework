@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const photoSchema = new Schema({
-  //id: Number,
   //time: Date,
   category: String,
   title: String,
@@ -30,6 +29,17 @@ const save = (obj) => {
 const getAll = (callback) => {
   photoModel.find().then((all) => {
     callback(all);
+  });
+};
+
+const findByCategory = (category, callback) => {
+  photoModel.find({'category': category}, (error, result) => {
+    if (error) {
+      console.log(error);
+      callback({ });
+    } else {
+      callback(result);
+    }
   });
 };
 

@@ -38,6 +38,10 @@ app.get('/get-all', (req, res) => {
   });
 });
 
+app.get('/get-none', (req, res) => {
+  res.status(200).json({});
+});
+
 app.get('/upload', (req, res) => {
   res.render('upload');
 });
