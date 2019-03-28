@@ -2,32 +2,30 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
-const path = require('path');
 app.use(express.static('public'));
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(require('./routers'));
 
-const upload = require('./helpers/uploadMiddleware');
-const Resize = require('./helpers/resize');
-const saveToJson = require('./helpers/fs');
+// const bodyParser = require('body-parser');
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: true}));
+
 
 app.set('view engine', 'ejs');
 
 const mongoose = require('mongoose');
-const database = require('./helpers/database');
 
-app.enable('trust proxy');
-app.use ((req, res, next) => {
-  if (req.secure) {
-    // request was via https, so do no special handling
-    next();
-  } else {
-    // request was via http, so redirect to https
-    res.redirect('https://' + req.headers.host + req.url);
-  }
-});
+//https redirecting
+// app.enable('trust proxy');
+// app.use ((req, res, next) => {
+//   if (req.secure) {
+//     // request was via https, so do no special handling
+//     next();
+//   } else {
+//     // request was via http, so redirect to https
+//     res.redirect('https://' + req.headers.host + req.url);
+//   }
+// });
 
 
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_MODEL}`)
@@ -36,45 +34,4 @@ mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@${proce
   app.listen(process.env.APP_PORT);
 }, err => {
   console.log('Connection to db failed: ' + err);
-});
-
-app.get('/', (req, res) => {
-  database.getAll((all) => {
-    res.render('home', {data: all});
-  });
-});
-
-app.get('/get-all', (req, res) => {
-  database.getAll((all) => {
-    res.status(200).json(all);
-  });
-});
-
-app.get('/get-none', (req, res) => {
-  res.status(200).json({});
-});
-
-app.get('/upload', (req, res) => {
-  res.render('upload');
-});
-
-app.post('/post', upload.single('image'), (req, res) => {
-  const imagePath = path.join('./public/uploads');
-  const fileUpload = new Resize(imagePath);
-
-  if (!req.file) {
-    res.status(401).json({error: 'Please provide an image'});
-  }
-
-  fileUpload.save(req.file.buffer, (filePaths) => {
-    //New JSON file
-    const newJson = {...req.body, ...filePaths};
-
-    //Save to data.json
-    saveToJson(newJson, 'data.json', () => { res.redirect('./') });
-
-    //Save to Mongo DB
-    database.save(newJson);
-
-  });
 });
