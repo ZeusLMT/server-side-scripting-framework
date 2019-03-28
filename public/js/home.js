@@ -1,13 +1,9 @@
-const indicator = document.querySelector('#indicator');
-const slideshow = document.querySelector('#slideshow');
 const imageDisplayDiv = document.querySelector('#imageDisplay');
 
 
 window.onload = () => {
   if (data.length !== 0) {
-    let indicatorCounter = 0;
-    let indicatorHtml = '';
-    let slideshowHtml = '';
+    let imageDisplayHtml = '';
 
     data.forEach((image) => {
       const title = image.title;
@@ -15,43 +11,24 @@ window.onload = () => {
       const details = image.details;
       const filename = image.filename;
 
-      if (indicatorCounter === 0) {
-        indicatorHtml += `
-        <li data-target="#imageDisplay" data-slide-to="${indicatorCounter}" class="active"></li>
-        `;
-
-        slideshowHtml += `
-          <div class="carousel-item active">
-                <img src="./uploads/${filename}.png" alt="${title}" style="width: 100%; height: 100%">
-                <div class="carousel-caption" style="background-color: rgba(52, 58, 64, 0.5)">
-                    <h3>${title}</h3>
-                    <p>${details}</p>
+      imageDisplayHtml += `
+        <div class="col-12 col-sm-6 col-lg-4" style="margin-top: 15px; margin-bottom: 15px">
+            <div class="card text-center bg-light" style="display: block">
+                <img class="card-img-top" src="./uploads/${filename}_medium.png" alt="${title}" style="width:100%; min-height: 30vh; height: 15vw; object-fit: cover;">
+                <div class="card-body">
+                    <h4 class="card-title">${title}</h4>
+                    <p class="card-text">${details}</p>
+                    <a href="#" class="btn btn-outline-info btn-block">View Photo</a>
                 </div>
             </div>
-          `;
-      } else {
-        indicatorHtml += `
-        <li data-target="#imageDisplay" data-slide-to="${indicatorCounter}"></li>
-        `;
-
-        slideshowHtml += `
-          <div class="carousel-item">
-                <img src="./uploads/${filename}.png" alt="${title}" style="width: 100%; height: 100%">
-                <div class="carousel-caption" style="background-color: rgba(52, 58, 64, 0.5)">
-                    <h3>${title}</h3>
-                    <p>${details}</p>
-                </div>
-            </div>
-          `;
-      }
-      indicatorCounter += 1;
+        </div>
+      `;
     });
 
     //Update HTML
-    indicator.innerHTML = indicatorHtml;
-    slideshow.innerHTML = slideshowHtml;
+    imageDisplayDiv.innerHTML = imageDisplayHtml;
   } else {
-    //Hide carousel
+    //Show empty alert
     imageDisplayDiv.innerHTML = '<p id="noImage">Sorry, no image available yet.</p>';
   }
 };

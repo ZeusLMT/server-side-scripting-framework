@@ -6,16 +6,11 @@ app.use(express.static('public'));
 
 app.use(require('./routers'));
 
-// const bodyParser = require('body-parser');
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: true}));
-
-
 app.set('view engine', 'ejs');
 
 const mongoose = require('mongoose');
 
-//https redirecting
+https redirecting
 app.enable('trust proxy');
 app.use ((req, res, next) => {
   if (req.secure) {
