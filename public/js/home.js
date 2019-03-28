@@ -2,6 +2,12 @@ const imageDisplayDiv = document.querySelector('#imageDisplay');
 
 
 window.onload = () => {
+  if (category) {
+    const currentCategory = document.querySelector(`#option-category-${category}`);
+    const defaultCategory = document.querySelector(`#option-category-all`);
+    currentCategory.setAttribute('selected', 'true');
+  }
+
   if (data.length !== 0) {
     let imageDisplayHtml = '';
 

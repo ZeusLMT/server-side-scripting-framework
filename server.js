@@ -10,7 +10,8 @@ app.set('view engine', 'ejs');
 
 const mongoose = require('mongoose');
 
-https redirecting
+//https redirecting
+
 app.enable('trust proxy');
 app.use ((req, res, next) => {
   if (req.secure) {

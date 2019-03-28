@@ -43,4 +43,4 @@ const findByCategory = (category, callback) => {
   });
 };
 
-module.exports = { save, getAll };
+module.exports = { save, getAll, findByCategory };
