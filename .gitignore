@@ -65,7 +65,7 @@ typings/
 .next
 
 # uploads folder
-uploads./
+uploads/
 
 #data json
 data.json

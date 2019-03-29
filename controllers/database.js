@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const ObjectId = require('mongodb').ObjectId;
 
 const Schema = mongoose.Schema;
 
@@ -43,4 +44,17 @@ const findByCategory = (category, callback) => {
   });
 };
 
-module.exports = { save, getAll, findByCategory };
+const remove = (id, callback) => {
+  photoModel.findByIdAndDelete(id, () => {
+    callback();
+  });
+};
+
+const update = (imageId, newObj, callback) => {
+  photoModel.findOneAndUpdate({'_id': ObjectId(imageId)}, newObj, {new: true}, (error, result) =>{
+    if (error) throw error;
+    callback(result);
+  });
+};
+
+module.exports = { save, getAll, findByCategory, remove, update };

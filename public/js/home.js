@@ -12,6 +12,7 @@ window.onload = () => {
     let imageDisplayHtml = '';
 
     data.forEach((image) => {
+      const id = image._id;
       const title = image.title;
       const category = image.category;
       const details = image.details;
