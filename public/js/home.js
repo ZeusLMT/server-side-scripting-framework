@@ -24,7 +24,8 @@ window.onload = () => {
                 <div class="card-body">
                     <h4 class="card-title">${title}</h4>
                     <p class="card-text">${details}</p>
-                    <a href="#" class="btn btn-outline-info btn-block">View Photo</a>
+                    <a href="#" class="btn btn-info">Edit info</a>
+                    <a href="#" class="btn btn-outline-danger">Delete</a>
                 </div>
             </div>
         </div>
