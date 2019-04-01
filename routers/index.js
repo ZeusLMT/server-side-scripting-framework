@@ -6,25 +6,14 @@ const urlencodedParser = bodyParser.urlencoded({extended: true});
 
 const database = require('../controllers/database');
 
-const controller = require('../controllers/images');
+const controller = require('../controllers/home');
 
 router.use('/upload', require('./upload'));
 router.use('/images', require('./images'));
 
-router.get('/', (req, res) => {
-  if (req.query.category) {
-    console.log((`redirected to ${req.query.category}`));
-    database.findByCategory(req.query.category, (result) => {
-      res.render('home', {data: result, category: req.query.category});
-    });
-  } else {
-    database.getAll((all) => {
-      res.render('home', {data: all, category: null});
-    });
-  }
-});
+router.get('/', controller.renderHome);
 
-router.post('/', urlencodedParser, controller.filterByCategory);
+router.post('/', urlencodedParser, controller.redirectToCategory);
 
 
 module.exports = router;

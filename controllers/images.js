@@ -15,10 +15,14 @@ exports.update = (req, res) => {
 };
 
 exports.filterByCategory = (req, res) => {
-  if (req.body.category === 'all') {
-    res.redirect(`/`);
+  if(req.params.category === 'all') {
+    database.getAll((result) => {
+      res.json(result);
+    })
   } else {
-    res.redirect(`/?category=${req.body.category}`);
+    database.findByCategory(req.params.category, (result) => {
+      res.json(result);
+    });
   }
 };
 

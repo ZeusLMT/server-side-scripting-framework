@@ -11,4 +11,6 @@ router.delete('/:imageId', controller.delete);
 
 router.patch('/:imageId', urlencodedParser, controller.update);
 
+router.get('/:category', controller.filterByCategory);
+
 module.exports = router;
