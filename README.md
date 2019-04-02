@@ -6,9 +6,7 @@
 - Save to database (mongooseDB)
 - Save to local JSON (fs.js)
 - Retrieve data from DB and show all images on front-end
-
-### TODO features:
-- Edit image info (PATCH)
-- Delete image (PUT)
-- Search for image (queries in DB)
-- Authentication
+- Edit image info (PATCH) with Postman only
+- Delete image (PUT) with Postman only
+- Search for image by category (query in DB)
+- Authentication (HTTPS redirecting)
