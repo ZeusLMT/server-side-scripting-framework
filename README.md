@@ -11,7 +11,7 @@
 - Search for image by category (query in DB)
 - Authentication (HTTPS redirecting)
 
-###Week 3 TODO list:
+### Week 3 TODO list:
 - Delete and Update work with front-end page
 - User login (with hashed pwd)
 - Use template engine (pug) for front-end

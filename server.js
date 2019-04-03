@@ -4,6 +4,9 @@ const express = require('express');
 const app = express();
 app.use(express.static('public'));
 
+const helmet = require('helmet');
+app.use(helmet({ ieNoOpen: false }));
+
 app.use(require('./routers'));
 
 app.set('view engine', 'ejs');
@@ -24,7 +27,7 @@ app.use ((req, res, next) => {
 });
 
 
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_MODEL}`)
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_MODEL}`, { useNewUrlParser: true })
 .then(() => {
   console.log('Connected successfully.');
   app.listen(process.env.APP_PORT);
