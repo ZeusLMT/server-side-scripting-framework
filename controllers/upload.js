@@ -3,7 +3,7 @@ const saveToJson = require('../helpers/fs');
 const database = require('../controllers/database');
 const path = require('path');
 
-exports.renderPage = (req, res) => {
+exports.renderUpload = (req, res) => {
   res.render('upload');
 };
 

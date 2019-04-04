@@ -5,7 +5,7 @@ const upload = require('../helpers/uploadMiddleware');
 
 const controller = require('../controllers/upload');
 
-router.get('/', controller.renderPage);
+router.get('/', controller.renderUpload);
 
 router.post('/', upload.single('image'), controller.uploadImage);
 
