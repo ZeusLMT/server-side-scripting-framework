@@ -1,5 +1,5 @@
 const Resize = require('../helpers/resize');
-const saveToJson = require('../helpers/fs');
+const fs = require('../helpers/fs');
 const database = require('../controllers/database');
 const path = require('path');
 
@@ -20,7 +20,7 @@ exports.uploadImage = (req, res) => {
     const newJson = {...req.body, ...filePaths};
 
     //Save to data.json
-    saveToJson(newJson, 'data.json', () => { res.redirect('./') });
+    fs.saveToJson(newJson, 'data.json', () => { res.redirect('./') });
 
     //Save to Mongo DB
     database.save(newJson);

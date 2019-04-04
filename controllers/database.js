@@ -33,6 +33,12 @@ const getAll = (callback) => {
   });
 };
 
+const findById = (id, callback) => {
+  photoModel.find({'_id': id}).then((result) => {
+    callback(result[0]);
+  });
+};
+
 const findByCategory = (category, callback) => {
   photoModel.find({'category': category}, (error, result) => {
     if (error) {
@@ -57,4 +63,4 @@ const update = (imageId, newObj, callback) => {
   });
 };
 
-module.exports = { save, getAll, findByCategory, remove, update };
+module.exports = { save, getAll, findByCategory, remove, update, findById };

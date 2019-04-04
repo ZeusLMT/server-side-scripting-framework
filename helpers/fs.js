@@ -26,5 +26,13 @@ const writeJson = (obj, filename, callback) => {
   });
 };
 
-module.exports = saveToJson;
+const deleteFile = (filepath) => {
+  fs.unlink(filepath, (error) => {
+    if(error) {
+      console.log(error);
+    }
+  })
+};
+
+module.exports = { saveToJson, deleteFile };
 
