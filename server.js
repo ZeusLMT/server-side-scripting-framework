@@ -30,6 +30,15 @@ app.use ((req, res, next) => {
 
 
 //Passport.js authorization
+const session = require('express-session');
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: true, // only over https
+    maxAge: 2 * 60 * 60 * 1000} // 2 hours
+}));
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 passport.use('local', new LocalStrategy(
@@ -38,15 +47,31 @@ passport.use('local', new LocalStrategy(
         done(null, false, {message: 'Incorrect credentials.'});
         return;
       }
-      return done(null, {}); // returned object usually contains something to identify the user
+      return done(null, { username: username }); // returned object usually contains something to identify the user
     }
 ));
-app.use(passport.initialize());
 
+// data put in passport cookies needs to be serialized
+passport.serializeUser((user, done) => {
+  console.log('serialize');
+  console.log(user);
+  done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+  console.log('serialize');
+  console.log(user);
+  done(null, user);
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Use router
 app.use(require('./routers'));
 
+//Mongoose Database
 const mongoose = require('mongoose');
-
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PWD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_MODEL}`, { useNewUrlParser: true })
 .then(() => {
   console.log('Connected successfully.');
