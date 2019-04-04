@@ -28,11 +28,9 @@ app.use ((req, res, next) => {
 //Passport.js authorization
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-passport.use(new LocalStrategy(
-    (email, password, done) => {
-      console.log(email);
-      console.log(password);
-      if (email !== process.env.LOGIN_EMAIL || password !== process.env.LOGIN_PWD) {
+passport.use('local', new LocalStrategy(
+    (username, password, done) => {
+      if (username !== process.env.LOGIN_USERNAME || password !== process.env.LOGIN_PWD) {
         done(null, false, {message: 'Incorrect credentials.'});
         return;
       }
