@@ -12,6 +12,9 @@ app.use(helmet({ ieNoOpen: false }));
 
 app.set('view engine', 'ejs');
 
+const bcrypt = require('bcrypt');
+const saltRound = 12;
+
 //https redirecting
 
 app.enable('trust proxy');
@@ -25,12 +28,13 @@ app.use ((req, res, next) => {
   }
 });
 
+
 //Passport.js authorization
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 passport.use('local', new LocalStrategy(
     (username, password, done) => {
-      if (username !== process.env.LOGIN_USERNAME || password !== process.env.LOGIN_PWD) {
+      if (username !== process.env.LOGIN_USERNAME || !bcrypt.compareSync(password, process.env.LOGIN_PWD)) {
         done(null, false, {message: 'Incorrect credentials.'});
         return;
       }
