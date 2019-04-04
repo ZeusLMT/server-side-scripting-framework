@@ -9,6 +9,7 @@ exports.renderHome = (req, res) => {
 exports.redirectToCategory = (req, res) => {
   if (req.body.category === 'all') {
     res.redirect('/');
+  } else {
+    res.redirect(`/?category=${req.body.category}`);
   }
-  res.redirect(`/?category=${req.body.category}`);
 };

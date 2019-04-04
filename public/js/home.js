@@ -1,6 +1,5 @@
 const imageDisplayDiv = document.querySelector('#imageDisplay');
 
-
 window.onload = () => {
   console.log(category);
   const currentCategory = document.querySelector(`#option-category-${category}`);
@@ -29,8 +28,8 @@ const loadImages = (category) => {
                 <div class="card-body">
                     <h4 class="card-title">${title}</h4>
                     <p class="card-text">${details}</p>
-                    <a href="#" class="btn btn-info">Edit info</a>
-                    <a href="#" class="btn btn-outline-danger">Delete</a>
+                    <a class="btn btn-info">Edit info</a>
+                    <a class="btn btn-outline-danger" data-id="${id}" onclick="onDelete(this)">Delete</a>
                 </div>
             </div>
         </div>
@@ -44,4 +43,13 @@ const loadImages = (category) => {
       imageDisplayDiv.innerHTML = '<p id="noImage">Sorry, no image available yet.</p>';
     }
   });
+};
+
+
+const onDelete = (clickedObject) => {
+  const id = clickedObject.getAttribute('data-id');
+  console.log(id);
+  const xhr = new XMLHttpRequest();
+  xhr.open("DELETE", `/images/${id}`, true);
+  xhr.send(null);
 };

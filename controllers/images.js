@@ -3,7 +3,7 @@ const database = require('../controllers/database');
 exports.delete = (req, res) => {
   console.log(req.params.imageId);
   database.remove(req.params.imageId, () => {
-    res.send('File deleted');
+    res.status(200).json({status: "OK"});
   });
 };
 
