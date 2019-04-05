@@ -6,8 +6,7 @@ exports.renderLogin = (req, res) => {
 
 exports.handleLogin = passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login/failed',
-    session: false }
+    failureRedirect: '/login/failed'}
   );
 
 exports.onLoginFail = (req, res) => {
