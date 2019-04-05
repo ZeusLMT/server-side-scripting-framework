@@ -1,8 +1,12 @@
 exports.renderHome = (req, res) => {
-  if (req.query.category !== undefined) {
-    res.render('home', {category: req.query.category});
+  if(req.user !== undefined) {
+    if (req.query.category !== undefined) {
+      res.render('home', {category: req.query.category});
+    } else {
+      res.render('home', {category: 'all'});
+    }
   } else {
-    res.render('home', {category: 'all'});
+    res.redirect('/login');
   }
 };
 
