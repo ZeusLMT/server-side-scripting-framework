@@ -11,11 +11,12 @@
 - Search for image by category (query in DB)
 - Authentication (HTTPS redirecting)
 
-### Week 3 TODO list:
-- Delete and Update work with front-end page
+### Week 3 completed goals:
+- Delete works with front-end page
 - User login (with hashed pwd)
-- Use template engine (pug) for front-end
-- Use Helmet, search for vulnerabilities and fix them
+- Use template engine (EJS) for front-end
+- Use Helmet with ieNoOpen disabled
+- Search for vulnerabilities -> no vulnerabilities found
 
 # JELASTIC ASSIGNMENT
 ### Task1:
