@@ -8,4 +8,6 @@ router.get('/', controller.renderLogin);
 
 router.post('/', controller.handleLogin);
 
+router.get('/failed', controller.onLoginFail);
+
 module.exports = router;

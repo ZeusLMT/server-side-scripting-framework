@@ -6,6 +6,10 @@ exports.renderLogin = (req, res) => {
 
 exports.handleLogin = passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/upload',
+    failureRedirect: '/login/failed',
     session: false }
   );
+
+exports.onLoginFail = (req, res) => {
+  res.json('Logging in failed!');
+};
