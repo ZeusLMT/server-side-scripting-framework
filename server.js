@@ -53,14 +53,10 @@ passport.use('local', new LocalStrategy(
 
 // data put in passport cookies needs to be serialized
 passport.serializeUser((user, done) => {
-  console.log('serialize');
-  console.log(user);
   done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
-  console.log('serialize');
-  console.log(user);
   done(null, user);
 });
 

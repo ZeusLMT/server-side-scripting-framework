@@ -2,7 +2,6 @@ const database = require('../controllers/database');
 const fs = require('../helpers/fs');
 
 exports.delete = (req, res) => {
-  console.log(req.params.imageId);
   database.findById(req.params.imageId, (result) => {
     fs.deleteFile(result.thumbnail);
     fs.deleteFile(result.image);
